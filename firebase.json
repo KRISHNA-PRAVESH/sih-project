@@ -1,0 +1,9 @@
+{
+  "hosting": [
+    {
+      "target": "sih-project",
+      "source": ".",
+      "frameworksBackend": {}
+    }
+  ]
+}

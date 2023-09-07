@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "sih-project-e7dcb": {
+      "hosting": {
+        "sih-project": [
+          "sih-project-e7dcb"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "sih-project-e7dcb"
+  }
+}
