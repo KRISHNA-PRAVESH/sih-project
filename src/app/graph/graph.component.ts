@@ -12,7 +12,9 @@ export class GraphComponent implements OnInit{
   constructor(private firebaseService : FirebaseService){ }
 
   public chart: any;
+  fetchable:boolean = false;
   async ngOnInit(){
+    
     await this.readData();
     let temperatures = this.readings.map(item => parseInt(item.temperature));
     let timestamps = this.readings.map(item => item.timestamp);
@@ -25,6 +27,7 @@ export class GraphComponent implements OnInit{
     let y_values_1 = [4,2,5,6,10]
     let y_values_2 = [2,1,5,8,4]
     //display chart
+    this.fetchable = true;
     this.chart = new Chart("chart",{
       options:{
         elements:{
