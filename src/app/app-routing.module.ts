@@ -6,6 +6,8 @@ import { AuthGuard } from './services/auth.guard';
 import { GraphComponent } from './graph/graph.component';
 import { DashTestComponent } from './dash-test/dash-test.component';
 import { SmsComponent } from './sms/sms.component';
+import { PiechartComponent } from './piechart/piechart.component';
+import { LocationComponent } from './location/location.component';
 
 const routes: Routes = [
   {
@@ -24,6 +26,10 @@ const routes: Routes = [
   {
     path:'sms',
     component:SmsComponent
+  },
+  {
+    path:'location',
+    component:LocationComponent
   }
 ];
 

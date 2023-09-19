@@ -30,6 +30,11 @@ import { SmsComponent } from './sms/sms.component';
 //mat
 import {MatIconModule} from '@angular/material/icon';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatChipsModule} from '@angular/material/chips';
+
+
+import { PiechartComponent } from './piechart/piechart.component';
+import { LocationComponent } from './location/location.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +43,9 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     DashboardComponent,
     GraphComponent,
     DashTestComponent,
-    SmsComponent
+    SmsComponent,
+    PiechartComponent,
+    LocationComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),
@@ -50,7 +57,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     AngularFireDatabaseModule,
     NgChartsModule,
     FontAwesomeModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatChipsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -34,22 +34,33 @@ export class FirebaseService {
     }
     const ref = this.db.list('/messages');
     return ref.push(data);
-  //   const db = getDatabase();
-  //  set(ref(db, 'users/' + userId), {
-  //   username: name,
-  //   email: email,
-  //   profile_picture : imageUrl
-  // }).then(()=>{
-  //   console.log("Data inserted into firebase")
-  // })
-  // .catch((err)=>{
-  //   console.log("Error: "+err);
-  // })
+
   }
-  async fetchData(){
+  private async fetchData(){
     const ref = this.db.list('/readings');
+    console.log(ref.valueChanges());
     return ref.valueChanges();
   }
+
+   readings:any[] = []
+ 
+  async readData(){
+    await new Promise(async(resolve,reject)=>{
+      (await this.fetchData()).subscribe((data)=>{
+       
+        this.readings = data;
+        resolve(data);
+      });
+    });
+    return this.readings;
+  }
+
+
+
+  getUpdatedReadings(){
+    return this.readings;
+  }
+
 
   logout(){
     this.firebaseAuth.signOut();
