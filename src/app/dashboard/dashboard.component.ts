@@ -7,7 +7,8 @@ import { Chart } from 'chart.js';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css',
+              '../assets/css/atlantis.min.css']
 })
 export class DashboardComponent implements OnInit {
   @Output() isLogout = new EventEmitter<void>()

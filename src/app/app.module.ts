@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatIconModule} from '@angular/material/icon';
+
 
 import { FormsModule } from '@angular/forms'; 
 
@@ -27,7 +27,9 @@ import { DashTestComponent } from './dash-test/dash-test.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SmsComponent } from './sms/sms.component';
 
-
+//mat
+import {MatIconModule} from '@angular/material/icon';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -49,6 +51,7 @@ import { SmsComponent } from './sms/sms.component';
     AngularFireDatabaseModule,
     NgChartsModule,
     FontAwesomeModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
