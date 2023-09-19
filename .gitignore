@@ -10,8 +10,11 @@
 /node_modules
 npm-debug.log
 yarn-error.log
+<<<<<<< HEAD
 server/node_modules
 server/.env
+=======
+>>>>>>> parent of 9d908ed (Created a node server to send sms)
 
 # IDEs and editors
 .idea/
