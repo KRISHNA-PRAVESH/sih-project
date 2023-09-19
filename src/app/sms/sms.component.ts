@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -8,10 +9,12 @@ import { Component } from '@angular/core';
 })
 export class SmsComponent {
  
-  mobileNumber: any = '';
+  mobileNumber: any = '+919344930703';
   message: any = '';
-
-  constructor() {} // Inject your Twilio service
+ 
+  constructor() {
+    
+  }
 
   
   sendMessage() {
