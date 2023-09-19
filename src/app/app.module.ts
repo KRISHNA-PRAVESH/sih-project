@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import {MatIconModule} from '@angular/material/icon';
 
 import { FormsModule } from '@angular/forms'; 
 
@@ -23,6 +23,10 @@ import { LoginComponent } from './login/login.component';
 // import { PlotlyModule } from 'angular-plotly.js';
 import { NgChartsModule } from 'ng2-charts';
 import { GraphComponent } from './graph/graph.component';
+import { DashTestComponent } from './dash-test/dash-test.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { SmsComponent } from './sms/sms.component';
+
 
 
 @NgModule({
@@ -30,7 +34,9 @@ import { GraphComponent } from './graph/graph.component';
     AppComponent,
     LoginComponent,
     DashboardComponent,
-    GraphComponent
+    GraphComponent,
+    DashTestComponent,
+    SmsComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),
@@ -38,12 +44,10 @@ import { GraphComponent } from './graph/graph.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
-    MatSlideToggleModule,
+    MatIconModule,
     AngularFireDatabaseModule,
     NgChartsModule,
-    
-   
-    
+    FontAwesomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

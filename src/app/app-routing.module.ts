@@ -4,6 +4,8 @@ import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuard } from './services/auth.guard';
 import { GraphComponent } from './graph/graph.component';
+import { DashTestComponent } from './dash-test/dash-test.component';
+import { SmsComponent } from './sms/sms.component';
 
 const routes: Routes = [
   {
@@ -15,6 +17,14 @@ const routes: Routes = [
     component:DashboardComponent,
     // canActivate:[AuthGuard]
   },
+  {
+    path:'dashtest',
+    component:DashTestComponent
+  },
+  {
+    path:'sms',
+    component:SmsComponent
+  }
 ];
 
 @NgModule({
