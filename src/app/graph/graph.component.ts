@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Chart } from 'chart.js';
 
 import { FirebaseService } from '../services/firebase.service';
+import { ThisReceiver } from '@angular/compiler';
 @Component({
   selector: 'app-graph',
   templateUrl: './graph.component.html',
@@ -16,7 +17,6 @@ export class GraphComponent implements OnInit{
    //reading data from firebase - realtime
    readings: any[] = [];
   async ngOnInit(){
-    
     this.readings = await this.firebaseService.readData();
     let temperatures = this.readings.map(item => parseInt(item.temperature));
     let timestamps = this.readings.map(item => item.timestamp);
@@ -25,7 +25,7 @@ export class GraphComponent implements OnInit{
     // console.log(timestamps);   // Array of timestamps
 
 
-    let x_values = [1,2,3,4,5];
+    let x_values = ['','','','',''];
     let y_values_1 = [4,2,5,6,10]
     let y_values_2 = [2,1,5,8,4]
     let y_values_3 = [11,4,5,9,2]
@@ -36,14 +36,14 @@ export class GraphComponent implements OnInit{
     const plots = [
       {
         type: 'line',
-        label: "H2S",
+        label: "CO",
         data: y_values_1,
         borderColor:'green',
         pointBackgroundColor:'black'
       },
       {
         type:'line',
-        label:"CO",
+        label:"H2S",
         data:y_values_2,
         borderColor:'yellow',
         pointBackgroundColor:'black',
@@ -64,7 +64,7 @@ export class GraphComponent implements OnInit{
       },
       {
         type:'line',
-        label:"temperature",
+        label:"SO2",
         data:y_values_5,
         borderColor:'black',
         pointBackgroundColor:'black',
@@ -76,7 +76,7 @@ export class GraphComponent implements OnInit{
 
     //for test
     setInterval(()=>{
-      x_values.push(c);
+      x_values.push('');
       y_values_1.push(Math.floor(Math.random() * 15) + 1)
       y_values_2.push(Math.floor(Math.random() * 15) + 1);
       y_values_3.push(Math.floor(Math.random() * 15) + 1);
@@ -91,14 +91,114 @@ export class GraphComponent implements OnInit{
         y_values_4.shift();
         y_values_5.shift();
       }
-      console.log(this.CO);
+      
+      // co-1,h2s-2, nh3-3, ch4-4 , so2 -5
       this.chart.data.labels = x_values;
-      this.chart.data.datasets[0].data = y_values_1;
-      this.chart.data.datasets[1].data = y_values_2;
-      this.chart.data.datasets[2].data = y_values_3;
-      this.chart.data.datasets[3].data = y_values_4;
-      this.chart.data.datasets[4].data = y_values_5;
-      this.chart.update();
+      //if CO chip is clicked, display only the CO data
+      if(this.CO){
+        const plots = [
+          {
+            type: 'line',
+            label: "CO",
+            data: y_values_1,
+            borderColor:'green',
+            pointBackgroundColor:'black'
+          }
+        ]
+        this.chart.data.datasets = plots;
+        this.chart.update(); 
+      }
+      else if(this.H2S){
+        const plots = [
+          {
+            type: 'line',
+            label: "H2S",
+            data: y_values_2,
+            borderColor:'yellow',
+            pointBackgroundColor:'black'
+          }
+        ]
+        this.chart.data.datasets = plots
+        this.chart.update();
+      }
+      else if(this.NH3){
+        const plots = [{
+          type:'line',
+          label:"NH3",
+          data:y_values_3,
+          borderColor:'blue',
+          pointBackgroundColor:'black',
+        }]
+        this.chart.data.datasets = plots;
+        this.chart.update();
+      }
+      else if(this.CH4){
+        const plots = [
+          {
+            type:'line',
+            label:"CH4",
+            data:y_values_4,
+            borderColor:'red',
+            pointBackgroundColor:'black',
+          }
+        ]
+        this.chart.data.datasets = plots;
+        this.chart.update();
+      }
+      else if(this.SO2){
+        const plots = [
+          {
+            type:'line',
+            label:"SO2",
+            data:y_values_5,
+            borderColor:'black',
+            pointBackgroundColor:'black',
+          }
+        ]
+        this.chart.data.datasets = plots;
+        this.chart.update();
+      }
+      else{
+        const plots = [
+          {
+            type: 'line',
+            label: "CO",
+            data: y_values_1,
+            borderColor:'green',
+            pointBackgroundColor:'black'
+          },
+          {
+            type:'line',
+            label:"H2S",
+            data:y_values_2,
+            borderColor:'yellow',
+            pointBackgroundColor:'black',
+          },
+          {
+            type:'line',
+            label:"NH3",
+            data:y_values_3,
+            borderColor:'blue',
+            pointBackgroundColor:'black',
+          },
+          {
+            type:'line',
+            label:"CH4",
+            data:y_values_4,
+            borderColor:'red',
+            pointBackgroundColor:'black',
+          },
+          {
+            type:'line',
+            label:"SO2",
+            data:y_values_5,
+            borderColor:'black',
+            pointBackgroundColor:'black',
+          }
+        ]
+        this.chart.data.datasets = plots;
+       this.chart.update();
+      }
       c++;
     },3000)
 
@@ -141,22 +241,45 @@ export class GraphComponent implements OnInit{
   chipSelected(chip:string){
     if(chip == 'CO'){
       this.CO = !this.CO;
-      if(this.CO){
-        //filter chart
-
-      }
-
-      
+      //set everything else to false (edge case where use didn't deselect a chip, instead he select another chip, the toggled value will stay true)
+      this.H2S = false;
+      this.NH3 = false;
+      this.CH4 = false;
+      this.SO2 = false;
     }
-    else if(chip == 'NH3' && !this.NH3){
+    else if(chip == 'NH3'){
       //filter chart
-
       this.NH3 = !this.NH3;
+
+      this.H2S = false;
+      this.CO = false;
+      this.CH4 = false;
+      this.SO2 = false;
     }
-    else if(chip == 'H2S' && !this.H2S){
+    else if(chip == 'H2S'){
       //filter chart 
+      this.H2S = !this.H2S;
 
+      this.CO = false;
+      this.NH3 = false;
+      this.CH4 = false;
+      this.SO2 = false;
+    }
+    else if(chip == 'CH4'){
+      this.CH4 = !this.CH4;
 
+      this.H2S = false;
+      this.NH3 = false;
+      this.CO = false;
+      this.SO2 = false;
+    }
+    else{
+      this.SO2 = !this.SO2;
+
+      this.H2S = false;
+      this.NH3 = false;
+      this.CH4 = false;
+      this.CO = false;
     }
   }
  
@@ -184,7 +307,7 @@ export class GraphComponent implements OnInit{
         }
       },
       data:{
-        labels:x_values,
+        labels:[],
 	      datasets: plots
       }
       

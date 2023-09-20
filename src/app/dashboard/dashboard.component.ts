@@ -1,9 +1,6 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FirebaseService } from '../services/firebase.service';
-
-import { Plotly } from 'angular-plotly.js/lib/plotly.interface';
-import { Chart } from 'chart.js';
-
+import { MessageService } from '../services/message.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -12,13 +9,16 @@ import { Chart } from 'chart.js';
 })
 export class DashboardComponent implements OnInit {
   @Output() isLogout = new EventEmitter<void>()
-  constructor(public firebaseService: FirebaseService){}
+  constructor(public firebaseService: FirebaseService,private messageService:MessageService){}
 
 
   ngOnInit(){
    
   }
 
+  sendAlert(){
+    this.messageService.sendSMS("Emergency!")
+  }
 
   logout(){
     this.firebaseService.logout();

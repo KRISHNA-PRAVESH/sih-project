@@ -37,7 +37,7 @@ export class FirebaseService {
 
   }
   private async fetchData(){
-    const ref = this.db.list('/readings');
+    const ref = this.db.list('/readnew');
     console.log(ref.valueChanges());
     return ref.valueChanges();
   }
@@ -47,8 +47,24 @@ export class FirebaseService {
   async readData(){
     await new Promise(async(resolve,reject)=>{
       (await this.fetchData()).subscribe((data)=>{
-       
-        this.readings = data;
+        data.forEach((reading:any)=>{
+          const data = reading.data.split('#');
+         
+          const structured_json = {
+              temperature: data[0],
+              humidity: data[1],
+              heartbeat: data[2],
+              co: data[3],
+              h2s:data[4],
+              nh3:data[5],
+              ch4:data[6],
+              so2: data[7],
+              sos: data[8],
+              lat: data[9],
+              lon: data[10]
+          };
+          this.readings.push(structured_json);
+        })
         resolve(data);
       });
     });

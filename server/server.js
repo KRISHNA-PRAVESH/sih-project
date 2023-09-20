@@ -12,11 +12,18 @@ fastify.get('/', function handler (request, reply) {
 //The post request consists of an alert , 
 //the alert message has the details about the gas the worker is exposed to , its level of ppm , employee id , employee_id location
 fastify.post('/alert',async(req,res)=>{
+ try{
+  res.header('Access-Control-Allow-Origin', '*');
    //sending sms to the superviser contains the details
    const alertMessage = JSON.stringify(req.body,null,2);
-//    console.log(alertMessage);
-   await sendSMS(alertMessage);
+  //  await sendSMS(alertMessage);
    console.log("SMS Sent to the supervisor")
+   res.status(200);
+ }
+ catch(err){
+   console.log(err);
+   res.status(500).send(new Error('Error sending sms'));
+ }
 
 })
 
@@ -26,7 +33,6 @@ fastify.post('/alert',async(req,res)=>{
 //Utilities
 const accountSid = process.env.TWILIO_ACCOUNT_SID; 
 const authToken = process.env.TWILIO_AUTH_TOKEN; 
-
 const client = new twilio(accountSid, authToken);
 
 //sending SMS with the details
