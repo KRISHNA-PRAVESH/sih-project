@@ -10,6 +10,7 @@ export class MessageService {
   constructor(private http:HttpClient,private snackBar:MatSnackBar) { }
 
   sendSMS(body:string){
+    console.log(body);
     this.http.post('http://localhost:3000/alert',body).subscribe({
       error:(err)=>{
         console.log(err);

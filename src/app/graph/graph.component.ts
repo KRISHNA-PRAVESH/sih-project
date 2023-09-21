@@ -18,19 +18,35 @@ export class GraphComponent implements OnInit{
    readings: any[] = [];
   async ngOnInit(){
     this.readings = await this.firebaseService.readData();
-    let temperatures = this.readings.map(item => parseInt(item.temperature));
-    let timestamps = this.readings.map(item => item.timestamp);
-    console.log(this.readings);
+    let len = this.readings.length;
+    //slicing to latest 50 readings
+    this.readings = this.readings.slice(-50,len)
+    // console.log(this.readings);
+    let co_readings = this.readings.map(item => item.co);
+    let h2s_readings = this.readings.map(item => item.h2s);
+    let nh3_readings = this.readings.map(item => item.nh3);
+    let ch4_readings = this.readings.map(item => item.ch4);
+  
+    // let timestamps = this.readings.map(item => item.timestamp);
+    // console.log(co_readings);
+    // console.log(h2s_readings);
+    // console.log(nh3_readings);
+    // console.log(ch4_readings);
+  
+  
     // console.log(temperatures); // Array of temperatures
     // console.log(timestamps);   // Array of timestamps
 
 
-    let x_values = ['','','','',''];
-    let y_values_1 = [4,2,5,6,10]
-    let y_values_2 = [2,1,5,8,4]
-    let y_values_3 = [11,4,5,9,2]
-    let y_values_4 = [3,5,2,10,14]
-    let y_values_5 = [5,2,6,13,10]
+    let x_values = [''];
+    for(let i=1;i<=49;i++){
+      x_values.push('');
+    }
+    let y_values_1 = co_readings
+    let y_values_2 = h2s_readings
+    let y_values_3 = nh3_readings
+    let y_values_4 = ch4_readings
+
     //display chart
     this.fetchable = true;
     const plots = [
@@ -62,35 +78,29 @@ export class GraphComponent implements OnInit{
         borderColor:'red',
         pointBackgroundColor:'black',
       },
-      {
-        type:'line',
-        label:"SO2",
-        data:y_values_5,
-        borderColor:'black',
-        pointBackgroundColor:'black',
-      }
     ]
     this.displayChart(x_values,plots)
     let c = 6;
-    const maxDataPoints = 10;
+    const maxDataPoints = 500;
 
     //for test
     setInterval(()=>{
-      x_values.push('');
-      y_values_1.push(Math.floor(Math.random() * 15) + 1)
-      y_values_2.push(Math.floor(Math.random() * 15) + 1);
-      y_values_3.push(Math.floor(Math.random() * 15) + 1);
-      y_values_4.push(Math.floor(Math.random() * 15) + 1);
-      y_values_5.push(Math.floor(Math.random() * 15) + 1);
 
-      if(x_values.length > maxDataPoints){
-        x_values.shift();
-        y_values_1.shift();
-        y_values_2.shift();
-        y_values_3.shift();
-        y_values_4.shift();
-        y_values_5.shift();
-      }
+      this.readings =  this.firebaseService.getUpdatedReadings();
+
+      let len = this.readings.length;
+      //getting the latest 50 values
+      this.readings = this.readings.slice(-50,len);
+      co_readings = this.readings.map(item => item.co);
+      h2s_readings = this.readings.map(item => item.h2s);
+      nh3_readings = this.readings.map(item => item.nh3);
+      ch4_readings = this.readings.map(item => item.ch4);
+    
+       y_values_1 = co_readings
+       y_values_2 = h2s_readings
+       y_values_3 = nh3_readings
+       y_values_4 = ch4_readings
+      
       
       // co-1,h2s-2, nh3-3, ch4-4 , so2 -5
       this.chart.data.labels = x_values;
@@ -145,19 +155,6 @@ export class GraphComponent implements OnInit{
         this.chart.data.datasets = plots;
         this.chart.update();
       }
-      else if(this.SO2){
-        const plots = [
-          {
-            type:'line',
-            label:"SO2",
-            data:y_values_5,
-            borderColor:'black',
-            pointBackgroundColor:'black',
-          }
-        ]
-        this.chart.data.datasets = plots;
-        this.chart.update();
-      }
       else{
         const plots = [
           {
@@ -188,13 +185,6 @@ export class GraphComponent implements OnInit{
             borderColor:'red',
             pointBackgroundColor:'black',
           },
-          {
-            type:'line',
-            label:"SO2",
-            data:y_values_5,
-            borderColor:'black',
-            pointBackgroundColor:'black',
-          }
         ]
         this.chart.data.datasets = plots;
        this.chart.update();
@@ -237,7 +227,7 @@ export class GraphComponent implements OnInit{
   H2S:boolean = false;
   NH3:boolean = false;
   CH4:boolean = false
-  SO2:boolean = false;
+  
   chipSelected(chip:string){
     if(chip == 'CO'){
       this.CO = !this.CO;
@@ -245,7 +235,7 @@ export class GraphComponent implements OnInit{
       this.H2S = false;
       this.NH3 = false;
       this.CH4 = false;
-      this.SO2 = false;
+      
     }
     else if(chip == 'NH3'){
       //filter chart
@@ -254,7 +244,7 @@ export class GraphComponent implements OnInit{
       this.H2S = false;
       this.CO = false;
       this.CH4 = false;
-      this.SO2 = false;
+     
     }
     else if(chip == 'H2S'){
       //filter chart 
@@ -263,24 +253,17 @@ export class GraphComponent implements OnInit{
       this.CO = false;
       this.NH3 = false;
       this.CH4 = false;
-      this.SO2 = false;
+   
     }
-    else if(chip == 'CH4'){
+    else {
       this.CH4 = !this.CH4;
 
       this.H2S = false;
       this.NH3 = false;
       this.CO = false;
-      this.SO2 = false;
+      
     }
-    else{
-      this.SO2 = !this.SO2;
-
-      this.H2S = false;
-      this.NH3 = false;
-      this.CH4 = false;
-      this.CO = false;
-    }
+    
   }
  
   //writing data to firebase
@@ -307,7 +290,7 @@ export class GraphComponent implements OnInit{
         }
       },
       data:{
-        labels:[],
+        labels:x_values,
 	      datasets: plots
       }
       

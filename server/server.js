@@ -15,8 +15,9 @@ fastify.post('/alert',async(req,res)=>{
  try{
   res.header('Access-Control-Allow-Origin', '*');
    //sending sms to the superviser contains the details
-   const alertMessage = JSON.stringify(req.body,null,2);
-  //  await sendSMS(alertMessage);
+  //  const alertMessage = JSON.stringify(req.body,null,2);
+      alertMessage = req.body
+   await sendSMS(alertMessage);
    console.log("SMS Sent to the supervisor")
    res.status(200);
  }

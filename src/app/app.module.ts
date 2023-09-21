@@ -37,6 +37,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar'
 
 import { PiechartComponent } from './piechart/piechart.component';
 import { LocationComponent } from './location/location.component';
+import { LiveTableComponent } from './live-table/live-table.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { LocationComponent } from './location/location.component';
     DashTestComponent,
     SmsComponent,
     PiechartComponent,
-    LocationComponent
+    LocationComponent,
+    LiveTableComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),
