@@ -1,6 +1,16 @@
 
 <div style="display: block;">
-    <mat-spinner *ngIf="!fetchable"></mat-spinner>
+  
+    <mat-spinner *ngIf="!fetchable" style="margin:0 auto;margin-top: 130px;" [diameter]="30"></mat-spinner>
+    <div *ngIf="fetchable">
+      <mat-chip-listbox>
+        <mat-chip-option (click)="chipSelected('CO')">CO</mat-chip-option>
+        <mat-chip-option (click)="chipSelected('H2S')">H2S</mat-chip-option>
+        <mat-chip-option (click)="chipSelected('NH3')">NH3</mat-chip-option>
+        <mat-chip-option (click)="chipSelected('CH4')">CH4</mat-chip-option>
+      </mat-chip-listbox>
+    </div>
+    
     <canvas id="chart"></canvas>
   
   </div>

@@ -4,7 +4,7 @@
     <!-- Logo Header -->
     <div class="logo-header" data-background-color="blue">
       <a href="index.html" class="logo">
-        <img src="../assets/img/logo.svg" alt="navbar brand" class="navbar-brand">
+        <img src="../assets/img/logo.svg" alt="" class="navbar-brand">
       </a>
       <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon">
@@ -39,7 +39,7 @@
                       <img src="../assets/img/profile.jpg" alt="image profile" class="avatar-img rounded">
                     </div>
                     <div class="u-text">
-                      <h4>Hizrian</h4>
+                      <h4></h4>
                       <p class="text-muted">hello@example.com</p>
                       <a href="profile.html" class="btn btn-xs btn-secondary btn-sm">View Profile</a>
                     </div>
@@ -62,43 +62,31 @@
     <div class="sidebar-wrapper scrollbar scrollbar-inner">
       <div class="sidebar-content">
         <div class="user">
-          <div class="avatar-sm float-left mr-2">
-            <img src="../assets/img/profile.jpg" alt="..." class="avatar-img rounded-circle">
-          </div>
+          
           <div class="info">
             <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
-              <span> Hizrian <span class="user-level">Administrator</span>
+              <span>  <span class="user-level">Administrator</span>
                 <span class="caret"></span>
               </span>
             </a>
             <div class="clearfix"></div>
             <div class="collapse in" id="collapseExample">
-              <ul class="nav">
-                <li>
-                  <a href="#profile">
-                    <span class="link-collapse">My Profile</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#edit">
-                    <span class="link-collapse">Edit Profile</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#settings">
-                    <span class="link-collapse">Settings</span>
-                  </a>
-                </li>
-              </ul>
+              
             </div>
           </div>
         </div>
         <ul class="nav nav-primary">
           <li class="nav-item active">
-            <a data-toggle="collapse" href="#dashboard" aria-expanded="false">
+            <a data-toggle="collapse" href="dashboard" aria-expanded="false">
       <mat-icon [ngStyle]="{'color':'white'}">home</mat-icon>
               <p>Dashboard</p>
             </a>
+          </li>
+          <li class="nav-item">
+            <a data-toggle="collapse" href="location" aria-expanded="false">
+              <mat-icon [ngStyle]="{'color':'grey'}"> location_on</mat-icon>
+                      <p>Location</p>
+                    </a>
           </li>
         </ul>
       </div>
@@ -109,32 +97,43 @@
     <div class="content">
       <div class="panel-header bg-primary-gradient">
         <div class="page-inner py-5">
+           
           <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
             <div>
               <h2 class="text-white pb-2 fw-bold">Dashboard</h2>
             </div>
+            <button style="display: flex; margin-left: 1200px;" (click)="sendAlert()" mat-raised-button color="warn">Alert</button>
+
           </div>
+
         </div>
       </div>
       <div class="page-inner mt--5">
         <div class="row">
           <div class="col-md-8">
-            <div class="card">
+            <div class="card" style="margin-bottom: 100px;" >
               <div class="card-header">
                 <div class="card-head-row">
                   <div class="card-title">Sensor Readings</div>
                   
                 </div>
               </div>
-              <div class="card-body">
-                <div class="chart-container" style="min-height: 375px">
+              <div class="card-body" >
+                <div class="chart-container" style="min-height: 375px;">
                   <app-graph></app-graph>
                 </div>
                 <div id="myChartLegend"></div>
               </div>
             </div>
           </div>
+          
           <div class="col-md-4">
+            <div class="card">
+              <app-piechart></app-piechart>
+            </div>
+          </div>
+
+          <!-- <div class="col-md-4">
             <div class="card card-primary">
               <div class="card-header">
                 <div class="card-title">Daily Sales</div>
@@ -155,15 +154,15 @@
                 <div id="task-complete" class="chart-circle mt-4 mb-3"></div>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
         <div class="row">
           <div class="col-md-4">
             <div class="card">
               <div class="card-body pb-0">
-                <div class="h1 fw-bold float-right text-primary">+5%</div>
-                <h2 class="mb-2">17</h2>
-                <p class="text-muted">Users online</p>
+                <div class="h1 fw-bold float-right text-primary">{{temperature}}</div>
+                <h2 class="mb-2"></h2>
+                <p class="text-muted">Temperature</p>
                 <div class="pull-in sparkline-fix">
                   <div id="lineChart"></div>
                 </div>
@@ -173,123 +172,33 @@
           <div class="col-md-4">
             <div class="card">
               <div class="card-body pb-0">
-                <div class="h1 fw-bold float-right text-danger">-3%</div>
-                <h2 class="mb-2">27</h2>
-                <p class="text-muted">New Users</p>
+                <div class="h1 fw-bold float-right text-danger">{{humidity}}</div>
+                <h2 class="mb-2"></h2>
+                <p class="text-muted">Humidity</p>
                 <div class="pull-in sparkline-fix">
                   <div id="lineChart2"></div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-md-4">
+          <!-- <div class="col-md-4">
             <div class="card">
               <div class="card-body pb-0">
                 <div class="h1 fw-bold float-right text-warning">+7%</div>
-                <h2 class="mb-2">213</h2>
-                <p class="text-muted">Transactions</p>
+                <h2 class="mb-2">{{heart_rate}}</h2>
+                <p class="text-muted">Heart Rate</p>
                 <div class="pull-in sparkline-fix">
                   <div id="lineChart3"></div>
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
-        <div class="row row-card-no-pd">
-          <div class="col-md-12">
-            <div class="card">
-              <div class="card-header">
-                <div class="card-head-row">
-                  <h4 class="card-title">Users Geolocation</h4>
-                  <div class="card-tools">
-                    <button class="btn btn-icon btn-link btn-primary btn-xs">
-                      <span class="fa fa-angle-down"></span>
-                    </button>
-                    <button class="btn btn-icon btn-link btn-primary btn-xs btn-refresh-card">
-                      <span class="fa fa-sync-alt"></span>
-                    </button>
-                    <button class="btn btn-icon btn-link btn-primary btn-xs">
-                      <span class="fa fa-times"></span>
-                    </button>
-                  </div>
-                </div>
-                <p class="card-category"> Map of the distribution of users around the world</p>
-              </div>
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="table-responsive table-hover table-sales">
-                      <table class="table">
-                        <tbody>
-                          <tr>
-                            <td>
-                              <div class="flag">
-                                <img src="../assets/img/flags/id.png" alt="indonesia">
-                              </div>
-                            </td>
-                            <td>Indonesia</td>
-                            <td class="text-right"> 2.320 </td>
-                            <td class="text-right"> 42.18% </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="flag">
-                                <img src="../assets/img/flags/us.png" alt="united states">
-                              </div>
-                            </td>
-                            <td>USA</td>
-                            <td class="text-right"> 240 </td>
-                            <td class="text-right"> 4.36% </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="flag">
-                                <img src="../assets/img/flags/au.png" alt="australia">
-                              </div>
-                            </td>
-                            <td>Australia</td>
-                            <td class="text-right"> 119 </td>
-                            <td class="text-right"> 2.16% </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="flag">
-                                <img src="../assets/img/flags/ru.png" alt="russia">
-                              </div>
-                            </td>
-                            <td>Russia</td>
-                            <td class="text-right"> 1.081 </td>
-                            <td class="text-right"> 19.65% </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="flag">
-                                <img src="../assets/img/flags/cn.png" alt="china">
-                              </div>
-                            </td>
-                            <td>China</td>
-                            <td class="text-right"> 1.100 </td>
-                            <td class="text-right"> 20% </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="flag">
-                                <img src="../assets/img/flags/br.png" alt="brazil">
-                              </div>
-                            </td>
-                            <td>Brasil</td>
-                            <td class="text-right"> 640 </td>
-                            <td class="text-right"> 11.63% </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        
+
+        <!-- Live Table -->
+        <app-live-table></app-live-table>
+        
       </div>
     </div>
     <!--   Core JS Files   -->

@@ -1,0 +1,51 @@
+<div class="row row-card-no-pd">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-head-row">
+            <h4 class="card-title">Readings Table</h4>
+            <div class="card-tools">
+              <button class="btn btn-icon btn-link btn-primary btn-xs">
+                <span class="fa fa-angle-down"></span>
+              </button>
+              <button class="btn btn-icon btn-link btn-primary btn-xs btn-refresh-card">
+                <span class="fa fa-sync-alt"></span>
+              </button>
+              <button class="btn btn-icon btn-link btn-primary btn-xs">
+                <span class="fa fa-times"></span>
+              </button>
+            </div>
+          </div>
+          <p class="card-category"></p>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="table-responsive table-hover table-sales">
+                <table class="table">
+                  <tbody>
+
+                    <tr>
+                        <th>CO</th>
+                        <th>H2S</th>
+                        <th>NH3</th>
+                        <th>CH4</th>
+                      
+                    </tr>
+                   
+                    <tr *ngFor="let reading of readings">
+                      <td>{{ reading.co }}</td>
+                      <td>{{ reading.h2s }}</td>
+                      <td>{{ reading.nh3 }}</td>
+                      <td>{{ reading.ch4 }}</td>
+                     
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

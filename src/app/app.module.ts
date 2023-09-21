@@ -4,14 +4,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-
+import { HttpClientModule } from '@angular/common/http'
 import { FormsModule } from '@angular/forms'; 
 
 //firebase
 import { AngularFireModule } from '@angular/fire/compat';
 import {AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import * as firebase from 'firebase/compat';
+
 
 //components
 import { environment } from '../environments/environment';
@@ -30,6 +30,14 @@ import { SmsComponent } from './sms/sms.component';
 //mat
 import {MatIconModule} from '@angular/material/icon';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatButtonModule} from '@angular/material/button';
+import {MatSnackBarModule} from '@angular/material/snack-bar'
+
+
+import { PiechartComponent } from './piechart/piechart.component';
+import { LocationComponent } from './location/location.component';
+import { LiveTableComponent } from './live-table/live-table.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +46,10 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     DashboardComponent,
     GraphComponent,
     DashTestComponent,
-    SmsComponent
+    SmsComponent,
+    PiechartComponent,
+    LocationComponent,
+    LiveTableComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),
@@ -50,7 +61,11 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     AngularFireDatabaseModule,
     NgChartsModule,
     FontAwesomeModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatChipsModule,
+    MatButtonModule,
+    HttpClientModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
