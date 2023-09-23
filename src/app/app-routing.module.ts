@@ -20,14 +20,6 @@ const routes: Routes = [
     // canActivate:[AuthGuard]
   },
   {
-    path:'dashtest',
-    component:DashTestComponent
-  },
-  {
-    path:'sms',
-    component:SmsComponent
-  },
-  {
     path:'location',
     component:LocationComponent
   }

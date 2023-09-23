@@ -41,7 +41,7 @@ async function sendSMS(alertMessage){
     try{
         await client.messages.create({
             body: alertMessage,
-            to: '+91 9344930703', 
+            to: '+91 9159721841', 
             from: '+14789997735' 
         })
         .then((message) => console.log(message.sid));
@@ -67,3 +67,6 @@ fastify.listen({ port: 3000 }, (err) => {
   }
 })
 
+
+// // Export the Express app as a Firebase Cloud Function
+// exports.api = functions.https.onRequest(app);

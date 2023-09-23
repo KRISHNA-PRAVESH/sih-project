@@ -266,16 +266,7 @@ export class GraphComponent implements OnInit{
     
   }
  
-  //writing data to firebase
-  async writeUserData(userId:string, name:string, email:string, imageUrl:string) {
-     this.firebaseService.insert(userId,name,email,imageUrl)
-      .then(()=>{
-        console.log("Success, inserted data");
-      })
-      .catch(err => {
-        console.error("Error: "+err);
-      })
-  }
+  
 
   displayChart(x_values:any[],plots:any[]){
     this.chart = new Chart("chart",{

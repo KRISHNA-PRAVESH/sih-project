@@ -29,14 +29,6 @@ export class FirebaseService {
     })
   }
 
-  async insert(userId:string,name:string,email:string,imageUrl:string){
-    const data = {
-      userId,name,email,imageUrl
-    }
-    const ref = this.db.list('/messages');
-    return ref.push(data);
-
-  }
   private async fetchData(){
     const ref = this.db.list('/worker');
     console.log(ref.valueChanges());
