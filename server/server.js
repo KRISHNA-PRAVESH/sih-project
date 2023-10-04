@@ -18,7 +18,7 @@ fastify.post('/alert',async(req,res)=>{
   //  const alertMessage = JSON.stringify(req.body,null,2);
       alertMessage = req.body
    await sendSMS(alertMessage);
-   console.log("SMS Sent to the supervisor")
+   console.log("SMS Sent to the supervisor,Success!")
    res.status(200);
  }
  catch(err){
