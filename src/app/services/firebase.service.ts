@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class FirebaseService {
   
-  isLoggedIn = false;
+  loggedIn = false;
   constructor(public firebaseAuth : AngularFireAuth,private router:Router,private db:AngularFireDatabase,private messageService:MessageService) { }
 
   async signIn(email: string, password: string){
@@ -18,7 +18,7 @@ export class FirebaseService {
     await this.firebaseAuth.signInWithEmailAndPassword(email,password) 
     .then((res) =>{
       // console.log(res);
-      this.isLoggedIn = true
+      this.loggedIn = true
       localStorage.setItem('user',JSON.stringify(res.user));
       this.router.navigate(['dashboard'])
     })
@@ -29,6 +29,11 @@ export class FirebaseService {
     })
   }
 
+  isLoggedIn(){
+    let user = localStorage.getItem('user');
+    if(user) return true;
+    else return false;
+  }
   async insert(userId:string,name:string,email:string,imageUrl:string){
     const data = {
       userId,name,email,imageUrl

@@ -17,20 +17,13 @@ const routes: Routes = [
   {
     path:'dashboard',
     component:DashboardComponent,
-    // canActivate:[AuthGuard]
-  },
-  {
-    path:'dashtest',
-    component:DashTestComponent
-  },
-  {
-    path:'sms',
-    component:SmsComponent
+    canActivate:[AuthGuard]
   },
   {
     path:'location',
     component:LocationComponent
-  }
+  },
+  
 ];
 
 @NgModule({

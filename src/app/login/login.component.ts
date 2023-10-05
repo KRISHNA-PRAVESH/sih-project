@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   }
   async signIn(){
     await this.firebaseService.signIn(this.formData.username,this.formData.password)
-    if(this.firebaseService.isLoggedIn){
+    if(this.firebaseService.isLoggedIn()){
       this.isSignedIn = true;
     }
   }
