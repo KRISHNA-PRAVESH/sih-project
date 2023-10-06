@@ -22,8 +22,8 @@ export const environment = {
     measurementId: "G-4E9Q5MK257"
   },
   twilio:{
-    s_id:"ACa324a1e1643c4f15372f698d4e924e0c",
-    auth_token : "4806a5e02a6f7a53e7cb67080bc7d78f"
+    s_id:"ACfc8a97db4fdc61bfa925c28baec3be91",
+    auth_token : "7dadfd98d5d95a9e9c3ea99779361a9a"
 
   }
 }

@@ -43,13 +43,15 @@ export class FirebaseService {
 
   }
   private async fetchData(){
+  
     const ref = this.db.list('/worker');
     console.log(ref.valueChanges());
     return ref.valueChanges();
   }
 
    readings:any[] = []
- 
+   latest_id = -1;
+    c = 0;
   async readData(){
     await new Promise(async(resolve,reject)=>{
       (await this.fetchData()).subscribe((data)=>{
@@ -71,15 +73,20 @@ export class FirebaseService {
               lat: data[10],
               lon: data[11]
           };
+          if(structured_json.sos == 'yes') console.log("SOS occured for id: "+structured_json.id);
+          console.log(this.latest_id)
           //If for any data 'sos' becomes 'yes', send an immediate alert sms to the supervisor through message service
-          if(structured_json.sos == 'yes'){ 
+          if(structured_json.sos == 'yes' &&  structured_json.id > this.latest_id){ 
             //check for redundant emergency messages: -> previous sos
+            this.latest_id = structured_json.id;
             //invoke sendSMS() function at message service
+            console.log("SOS sent for id: ",structured_json.id)
             // this.messageService.sendSMS("An Emergency Occured !");
           }
           clean_data.push(structured_json);
         })
         this.readings = clean_data
+        
         console.log(this.readings);
         resolve(data);
       });

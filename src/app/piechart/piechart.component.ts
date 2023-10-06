@@ -14,16 +14,16 @@ export class PiechartComponent implements OnInit {
   
   public readings:any[] = [];
    fetchable:boolean = false;
-   ngOnInit() {
+   async ngOnInit() {
   //use setTime out for some time until graph component fetches all data
-    setTimeout(()=>{
-      this.readings = this.firebaseService.getUpdatedReadings();
+   
+      this.readings =  await this.firebaseService.readData();
       console.log(this.readings);
       this.fetchable = true;
       let len = this.readings.length-1;
       let pie_data = [this.readings[len].co,this.readings[len].h2s,this.readings[len].nh3,this.readings[len].ch4]
       this.displayPieChart(pie_data);
-    },4000)
+  
   
 
   
