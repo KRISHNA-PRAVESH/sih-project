@@ -41,8 +41,8 @@ async function sendSMS(alertMessage){
     try{
         await client.messages.create({
             body: alertMessage,
-            to: '+91 9344930703', 
-            from: '+14789997735' 
+            to: '+91 9994862552', 
+            from: '+19737715716' 
         })
         .then((message) => console.log(message.sid));
     }

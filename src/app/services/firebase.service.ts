@@ -81,7 +81,8 @@ export class FirebaseService {
             this.latest_id = structured_json.id;
             //invoke sendSMS() function at message service
             console.log("SOS sent for id: ",structured_json.id)
-            // this.messageService.sendSMS("An Emergency Occured !");
+            this.messageService.sendSMS("An Emergency Occured !");
+            //remove comment to intialise service
           }
           clean_data.push(structured_json);
         })
